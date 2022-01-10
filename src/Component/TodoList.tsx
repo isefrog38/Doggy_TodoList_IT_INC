@@ -2,13 +2,14 @@ import React from 'react';
 import TodoListHeader from "./TodoListHeader";
 import Button from "./Button";
 import AddPanel from "./AddPanel";
-import {TaskType} from "../App";
+import {FilterValuesType, TaskType} from "../App";
 import Task from "./Task";
 
 type TodoListPropsType = {
     titleOfTodo: string
     tasks: Array<TaskType>
     removeTask: (taskID: number) => void
+    changeFilter: (filter: FilterValuesType) => void
 }
 
 function TodoList(props: TodoListPropsType) {
@@ -38,9 +39,15 @@ function TodoList(props: TodoListPropsType) {
                     {tasksComponents}
                 </ul>
                 <div>
-                    <Button title={"All"}/>
-                    <Button title={"Active"}/>
-                    <Button title={"Completed"}/>
+                    <Button
+                        onClickHandler={() => props.changeFilter("All")}
+                        title={"All"}/>
+                    <Button
+                        onClickHandler={() => props.changeFilter("Active")}
+                        title={"Active"}/>
+                    <Button
+                        onClickHandler={() => props.changeFilter("Completed")}
+                        title={"Completed"}/>
                 </div>
             </div>
         </>
