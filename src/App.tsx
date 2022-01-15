@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./Component/TodoList";
+import {v1} from 'uuid';
 
 export type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -23,22 +24,22 @@ function App() {
 
     // logic remove , UseState
     const [tasks, setTasks] = useState<Array<TaskType>>([
-        {id: 1, title: "HTML&CSS", isDone: true},
-        {id: 2, title: "JS/ES6", isDone: true},
-        {id: 3, title: "React", isDone: true},
-        {id: 4, title: "Redux", isDone: false},
-        {id: 5, title: "Bootstrap", isDone: false},
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS/ES6", isDone: true},
+        {id: v1(), title: "React", isDone: true},
+        {id: v1(), title: "Redux", isDone: false},
+        {id: v1(), title: "Bootstrap", isDone: false},
     ])
 
-    const removeTask = (taskID: number) => {
+    const removeTask = (taskID: string) => {
         /* const filterTasks = tasks.filter(t => t.id !== taskID)*/
         setTasks(tasks.filter(t => t.id !== taskID));
     }
 
 // logic Filter
-    const [filter, setFilter] = useState<FilterValuesType>("All");
+    let [filter, setFilter] = useState<FilterValuesType>("All");
 
-    const changeFilter = (filter: FilterValuesType) => {
+    let changeFilter = (filter: FilterValuesType) => {
         setFilter(filter)
     }
 // Sam Filter
@@ -60,6 +61,16 @@ function App() {
     }
     const tasksForRender = getTasksForRender()*/
 
+    const addTask = (title: string) => {
+        let newTask = {
+            id: v1(),
+            title: title,
+            isDone: false
+        };
+        let newTasks = [newTask, ...tasks];
+        return setTasks(newTasks)
+    }
+
 //UI
     return (
         <div className="App">
@@ -68,10 +79,12 @@ function App() {
                 titleOfTodo={todoListTitle}
                 // useState
                 tasks={tasksForRender}
-                // props na ydalenie
+                // props na remove
                 removeTask={removeTask}
                 // props na button filter
                 changeFilter={changeFilter}
+                // addTask
+                addTask={addTask}
             />
         </div>
     );

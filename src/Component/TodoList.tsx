@@ -8,13 +8,14 @@ import Task from "./Task";
 type TodoListPropsType = {
     titleOfTodo: string
     tasks: Array<TaskType>
-    removeTask: (taskID: number) => void
+    removeTask: (taskID: string) => void
     changeFilter: (filter: FilterValuesType) => void
+    addTask: (title: string) => void
 }
 
 function TodoList(props: TodoListPropsType) {
-    const tasksComponents = props.tasks.map((t) => <Task key={t.id} removeTask={props.removeTask} {...t}/>)
 
+    const tasksComponents = props.tasks.map((t) => <Task key={t.id} removeTask={props.removeTask} {...t}/>)
     /*const tasksComponents = props.tasks.map((task) => {
         return (
             <Task
@@ -26,12 +27,15 @@ function TodoList(props: TodoListPropsType) {
             />
         )
     })*/
+    const onAllClickHandler = () => props.changeFilter("All")
+    const onActiveClickHandler = () => props.changeFilter("Active")
+    const onCompletedClickHandler = () => props.changeFilter("Completed")
 
     return (
         <>
             <div>
                 <TodoListHeader title={props.titleOfTodo}/>
-                <AddPanel/>
+                <AddPanel addTask={props.addTask}/>
                 <div>
                     <h1>Yo</h1>
                 </div>
@@ -40,13 +44,13 @@ function TodoList(props: TodoListPropsType) {
                 </ul>
                 <div>
                     <Button
-                        onClickHandler={() => props.changeFilter("All")}
+                        onClickHandler={ onAllClickHandler }
                         title={"All"}/>
                     <Button
-                        onClickHandler={() => props.changeFilter("Active")}
+                        onClickHandler={ onActiveClickHandler }
                         title={"Active"}/>
                     <Button
-                        onClickHandler={() => props.changeFilter("Completed")}
+                        onClickHandler={ onCompletedClickHandler }
                         title={"Completed"}/>
                 </div>
             </div>
