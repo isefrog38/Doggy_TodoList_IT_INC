@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import TodoList from "./Component/TodoList";
+import TodoList from "./Component/TodoList/TodoList";
 import {v1} from 'uuid';
 
 export type TaskType = {
@@ -73,6 +73,14 @@ function App() {
         return setTasks(newTasks)
     }
 
+    function changeStatus (tasksId: string, isDone: boolean) {
+        let task = tasks.find( t  => t.id === tasksId);
+        if (task) {
+            task.isDone = isDone;
+        }
+        setTasks([...tasks])
+    }
+
 //UI
     return (
         <div className="App">
@@ -87,6 +95,10 @@ function App() {
                 changeFilter={changeFilter}
                 // addTask
                 addTask={addTask}
+                // changeStatus
+                changeTaskStatus={changeStatus}
+                // filter button style
+                filterBS={filter}
             />
         </div>
     );

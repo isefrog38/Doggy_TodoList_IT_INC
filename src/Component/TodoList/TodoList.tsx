@@ -1,9 +1,9 @@
 import React from 'react';
-import TodoListHeader from "./TodoListHeader";
-import Button from "./Button";
-import AddPanel from "./AddPanel";
-import {FilterValuesType, TaskType} from "../App";
-import Task from "./Task";
+import TodoListHeader from "../TodoListHeader";
+import Button from "../Button";
+import AddPanel from "../AddPanel/AddPanel";
+import {FilterValuesType, TaskType} from "../../App";
+import Task from "../Task/Task";
 
 type TodoListPropsType = {
     titleOfTodo: string
@@ -11,22 +11,26 @@ type TodoListPropsType = {
     removeTask: (taskID: string) => void
     changeFilter: (filter: FilterValuesType) => void
     addTask: (title: string) => void
+    changeTaskStatus: (taskId: string, isDone:boolean) => void
+    filterBS: FilterValuesType
 }
 
 function TodoList(props: TodoListPropsType) {
 
-    const tasksComponents = props.tasks.map((t) => <Task key={t.id} removeTask={props.removeTask} {...t}/>)
-    /*const tasksComponents = props.tasks.map((task) => {
+    /*const tasksComponents = props.tasks.map((t) => <Task key={t.id} removeTask={props.removeTask} {...t}/>)*/
+    const tasksComponents = props.tasks.map((task) => {
         return (
             <Task
                 id={task.id}
                 title={task.title}
                 isDone={task.isDone}
                 removeTask={props.removeTask}
+                changeTaskStatus={props.changeTaskStatus}
                 //или деструктуризировать {...task}
             />
         )
-    })*/
+    })
+
     const onAllClickHandler = () => props.changeFilter("All");
     const onActiveClickHandler = () => props.changeFilter("Active");
     const onCompletedClickHandler = () => props.changeFilter("Completed");
@@ -43,13 +47,13 @@ function TodoList(props: TodoListPropsType) {
                     {tasksComponents}
                 </ul>
                 <div>
-                    <Button
+                    <Button filterBS={props.filterBS}
                         onClickHandler={ onAllClickHandler }
                         title={"All"}/>
-                    <Button
+                    <Button filterBS={props.filterBS}
                         onClickHandler={ onActiveClickHandler }
                         title={"Active"}/>
-                    <Button
+                    <Button filterBS={props.filterBS}
                         onClickHandler={ onCompletedClickHandler }
                         title={"Completed"}/>
                 </div>
