@@ -61,10 +61,12 @@ function App() {
     }
     const tasksForRender = getTasksForRender()*/
 
+    // add tasks in TASKS STATE
     const addTask = (title: string) => {
         let newTask = {
             id: v1(),
-            title: title,
+            /*title: title,*/
+            title ,
             isDone: false
         };
         let newTasks = [newTask, ...tasks];

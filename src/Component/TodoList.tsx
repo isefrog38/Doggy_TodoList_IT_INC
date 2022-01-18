@@ -27,9 +27,9 @@ function TodoList(props: TodoListPropsType) {
             />
         )
     })*/
-    const onAllClickHandler = () => props.changeFilter("All")
-    const onActiveClickHandler = () => props.changeFilter("Active")
-    const onCompletedClickHandler = () => props.changeFilter("Completed")
+    const onAllClickHandler = () => props.changeFilter("All");
+    const onActiveClickHandler = () => props.changeFilter("Active");
+    const onCompletedClickHandler = () => props.changeFilter("Completed");
 
     return (
         <>
