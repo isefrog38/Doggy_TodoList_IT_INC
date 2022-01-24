@@ -5,12 +5,12 @@ import {FilterValuesType} from "../App";
 type ButtonPropsType = {
     title: string
     onClickHandler: () => void
-    filterBS: FilterValuesType
+    activeButton: FilterValuesType
 }
 
-function Button({title, onClickHandler, filterBS}: ButtonPropsType) {
+function Button({title, onClickHandler, activeButton}: ButtonPropsType) {
     return (
-        <button className={filterBS === title ? s.active : ""}
+        <button className={activeButton === title ? s.active : ""}
             onClick={onClickHandler}>
             {title}
         </button>

@@ -36,13 +36,14 @@ function App() {
         setTasks(tasks.filter(t => t.id !== taskID));
     }
 
-// logic Filter
+     // logic Filter Buttons
     let [filter, setFilter] = useState<FilterValuesType>("All");
 
     let changeFilter = (filter: FilterValuesType) => {
         setFilter(filter)
     }
-// Sam Filter
+
+    // Sam Filter
     let tasksForRender = tasks
     if (filter === "Active") {
         tasksForRender = tasks.filter(t => !t.isDone)
@@ -74,14 +75,17 @@ function App() {
     }
 
     function changeStatus (tasksId: string, isDone: boolean) {
-        let task = tasks.find( t  => t.id === tasksId);
+    /*function changeStatus (tasksId: string) {*/
+          setTasks(tasks.map(t => t.id === tasksId ? {...t, isDone: isDone} : t))
+        // чуть хуже , потому что там нет копии массива, есть только ссылка
+        /*let task = tasks.find( t  => t.id === tasksId);
         if (task) {
             task.isDone = isDone;
         }
-        setTasks([...tasks])
+        setTasks([...tasks])*/
     }
 
-//UI
+    //UI
     return (
         <div className="App">
             <TodoList
