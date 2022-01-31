@@ -2,17 +2,19 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from "./AddPanel.module.css";
 
 type AddPanelType = {
-    addTask: (title: string) => void
+    id: string
+    addTask: (title: string, todolistId: string) => void
 }
 
 function AddPanel(props: AddPanelType) {
 
     const [newTaskTitle, setNewTaskTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
-    const onChangeHandler = ( e: ChangeEvent<HTMLInputElement>) => {
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTaskTitle(e.currentTarget.value)
     }
-    const onKeyPressAddTask = ( e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         /*if (e.ctrlKey || e.charCode === 13) {*/
         if (e.ctrlKey || e.key === "Enter") {
@@ -21,21 +23,22 @@ function AddPanel(props: AddPanelType) {
     }
     const addTaskHandler = () => {
         if (newTaskTitle.trim() !== "") {
-            props.addTask(newTaskTitle.trim())
+            props.addTask(newTaskTitle.trim(), props.id)
             setNewTaskTitle("")
         } else {
-            setError("Title is required")
+            setError("Title is required !")
         }
     }
 
 
     return (
         <div>
-            <input className={error ? s.error: ""}
-                    value={newTaskTitle}
+            <input className={error ? s.error : ""}
+                   value={newTaskTitle}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressAddTask}/>
-            <button onClick={addTaskHandler}>+
+            <button className={s.ButtonStyle}
+                onClick={addTaskHandler}>+
             </button>
             {error && <div className={s.error_message}>{error}</div>}
         </div>

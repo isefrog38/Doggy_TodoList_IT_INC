@@ -6,23 +6,25 @@ import {FilterValuesType, TaskType} from "../../App";
 import Task from "../Task/Task";
 
 type TodoListPropsType = {
+    id: string
     titleOfTodo: string
     tasks: Array<TaskType>
-    removeTask: (taskID: string) => void
-    changeFilter: (filter: FilterValuesType) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
-    /*changeTaskStatus: (taskId: string) => void*/
+    removeTask: (taskID: string, todolistId: string) => void
+    changeFilter: (filter: FilterValuesType, todolistId: string) => void
+    addTask: (title: string, todolistId: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     filterBS: FilterValuesType
+    removeTodolist: (todolistId: string) => void
 }
 
 function TodoList(props: TodoListPropsType) {
 
-    /*const tasksComponents = props.tasks.map((t) => <Task key={t.id} removeTask={props.removeTask} {...t}/>)*/
     const tasksComponents = props.tasks.map((task) => {
         return (
             <Task
+                key={task.id}
                 id={task.id}
+                todolistId={props.id}
                 title={task.title}
                 isDone={task.isDone}
                 removeTask={props.removeTask}
@@ -33,18 +35,20 @@ function TodoList(props: TodoListPropsType) {
     })
 
     //  если передаешь сам иншлстэйт то props.changeFilter === "значение"
-    const onAllClickHandler = () => props.changeFilter("All");
-    const onActiveClickHandler = () => props.changeFilter("Active");
-    const onCompletedClickHandler = () => props.changeFilter("Completed");
+    const onAllClickHandler = () => props.changeFilter("All" , props.id);
+    const onActiveClickHandler = () => props.changeFilter("Active", props.id);
+    const onCompletedClickHandler = () => props.changeFilter("Completed", props.id);
 
     return (
         <>
             <div>
+                <button
+                    onClick={ () => props.removeTodolist(props.id)}
+                >x</button>
                 <TodoListHeader title={props.titleOfTodo}/>
-                <AddPanel addTask={props.addTask}/>
-                <div>
-                    <h1>Yo</h1>
-                </div>
+
+                <AddPanel addTask={props.addTask} id={props.id}/>
+
                 <ul>
                     {tasksComponents}
                 </ul>
