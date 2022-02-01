@@ -3,7 +3,7 @@ import s from "./AddPanel.module.css";
 
 type AddPanelType = {
     id: string
-    addTask: (title: string, todolistId: string) => void
+    addTask: ( todolistId: string, title: string) => void
 }
 
 function AddPanel(props: AddPanelType) {
@@ -23,7 +23,7 @@ function AddPanel(props: AddPanelType) {
     }
     const addTaskHandler = () => {
         if (newTaskTitle.trim() !== "") {
-            props.addTask(newTaskTitle.trim(), props.id)
+            props.addTask(props.id, newTaskTitle.trim())
             setNewTaskTitle("")
         } else {
             setError("Title is required !")

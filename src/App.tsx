@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./Component/TodoList/TodoList";
 import {v1} from 'uuid';
-import img1 from "../public/first.jpg";
 
 export type TaskType = {
     id: string
@@ -10,7 +9,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-type todoListsType = {
+type TodoListsType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -40,86 +39,81 @@ function App() {
         ],
     })
 
-    let [todolists, setTodolist] = useState<Array<todoListsType>>([
+    let [todolists, setTodolist] = useState<Array<TodoListsType>>([
         {id: task1, title: "What to learn", filter: "All"},
         {id: task2, title: "What to buy", filter: "All"},
     ])
 
     const removeTodolist = (todolistId: string) => {
-        let filteredTodolist = todolists.filter(tl => tl.id !== todolistId);
+        /*let filteredTodolist = todolists.filter(tl => tl.id !== todolistId);
         setTodolist(filteredTodolist)
         delete tasksObj[todolistId]
-        setTasks({...tasksObj})
+        setTasks({...tasksObj})*/
+
+        setTodolist(todolists.filter(f => f.id !== todolistId ? delete tasksObj[todolistId] : setTasks({...tasksObj})))
     }
 
-    const removeTask = (taskID: string, todolistId: string) => {
-        let tasks = tasksObj[todolistId];
-        tasksObj[todolistId] = tasks.filter( t => t.id !== taskID);
-        setTasks({...tasksObj});
+    const removeTask = (todolistId: string, taskID: string) => {
+        setTasks({...tasksObj, [todolistId]: tasksObj[todolistId].filter(t => t.id !== taskID)})
     }
 
-    let changeFilter = (value: FilterValuesType, todolistId: string) => {
-        let todolist = todolists.find(tl => tl.id === todolistId);
-        if (todolist) {
-            todolist.filter = value;
-            setTodolist([...todolists]);
-        }
+    let changeFilter = (todolistId: string, value: FilterValuesType) => {
+        setTodolist(todolists.map((m) => m.id === todolistId ? {...m, filter: value} : m));
     }
 
     // add tasks in TASKS STATE
-    const addTask = (title: string, todolistId: string) => {
-        let newTask = {id: v1(), title, isDone: false};
-        let tasks = tasksObj[todolistId];
-        //// или вместо этих двух строк
-        // let newTasks = [newTask, ...tasks]
-        //tasksObj[todolistId] = newTasks
-        tasksObj[todolistId] = [newTask, ...tasks];
-        return setTasks({...tasksObj})
+    const addTask = (todolistId: string, title: string) => {
+        let newTask = {id: v1(), title, isDone: false}
+        setTasks({...tasksObj, [todolistId]: [newTask, ...tasksObj[todolistId]]})
     }
 
-    function changeStatus(tasksId: string, isDone: boolean, todolistId: string) {
-        let tasks = tasksObj[todolistId]
-        tasksObj[todolistId] = tasks.map( t => t.id === tasksId ? {...t, isDone} : t)
-        setTasks({...tasksObj})
+    function changeStatus(todolistId: string, tasksId: string, isDone: boolean) {
+        setTasks({
+            ...tasksObj,
+            [todolistId]: [...tasksObj[todolistId].map(t => t.id === tasksId ? {...t, isDone} : t)]
+        });
     }
 
     //UI
     return (
         <div className={"App"}>
-            {/*<div style={{background: `url(${img1})no-repeat center/cover`, height: '100vh'}}/>*/}
             {
                 todolists.map((tl) => {
 
                     // Sam Filter
                     let tasksForRender = tasksObj[tl.id]
                     if (tl.filter === "Active") {
-                        tasksForRender = tasksForRender.filter( t => !t.isDone )
+                        tasksForRender = tasksForRender.filter(t => !t.isDone)
                     } else if (tl.filter === "Completed") {
-                        tasksForRender = tasksForRender.filter( t => t.isDone )
+                        tasksForRender = tasksForRender.filter(t => t.isDone)
                     }
 
-                    return <TodoList
-                        // ключи обязательны
-                        key={tl.id}
-                        // id
-                        id={tl.id}
-                        // name
-                        titleOfTodo={tl.title}
-                        // useState
-                        tasks={tasksForRender}
-                        // props na remove
-                        removeTask={removeTask}
-                        // props na button filter
-                        changeFilter={changeFilter}
-                        // addTask
-                        addTask={addTask}
-                        // changeStatus
-                        changeTaskStatus={changeStatus}
-                        // filter button style
-                        filterBS={tl.filter}
-                        // delete All todoLIST
-                        removeTodolist={removeTodolist}
-                    />
+                    return (
+                        <div className={"todolistBlock"}>
+                            <TodoList
+                                // ключи обязательны
+                                key={tl.id}
+                                // id
+                                id={tl.id}
+                                // name
+                                titleOfTodo={tl.title}
+                                // useState
+                                tasks={tasksForRender}
+                                // props na remove
+                                removeTask={removeTask}
+                                // props na button filter
+                                changeFilter={changeFilter}
+                                // addTask
+                                addTask={addTask}
+                                // changeStatus
+                                changeTaskStatus={changeStatus}
+                                // filter button style
+                                filterBS={tl.filter}
+                                // delete All todoLIST
+                                removeTodolist={removeTodolist}
+                            />
+                        </div>
+                    )
                 })
             }
         </div>

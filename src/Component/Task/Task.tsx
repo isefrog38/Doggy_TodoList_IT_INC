@@ -5,13 +5,13 @@ import s from "./Task.module.css";
 type TaskPropsType = TaskType & {
     todolistId: string
     removeTask: (taskID: string, todolistId: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
+    changeTaskStatus: ( todolistId: string, taskId: string, isDone: boolean) => void
 }
 
 const Task: React.FC<TaskPropsType> = ({id, title, isDone, removeTask, changeTaskStatus, todolistId}) => {
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(id, e.currentTarget.checked, todolistId);
-    const onClickRemoveTask = () => removeTask(id, todolistId);
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus( todolistId, id, e.currentTarget.checked);
+    const onClickRemoveTask = () => removeTask( todolistId, id );
 
     return <li key={id}
                className={isDone ? s.is_done : ""}>

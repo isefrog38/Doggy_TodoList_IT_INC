@@ -9,10 +9,10 @@ type TodoListPropsType = {
     id: string
     titleOfTodo: string
     tasks: Array<TaskType>
-    removeTask: (taskID: string, todolistId: string) => void
-    changeFilter: (filter: FilterValuesType, todolistId: string) => void
-    addTask: (title: string, todolistId: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
+    removeTask: ( todolistId: string, taskID: string) => void
+    changeFilter: (todolistId: string, filter: FilterValuesType) => void
+    addTask: ( todolistId: string, title: string) => void
+    changeTaskStatus: ( todolistId: string, taskId: string, isDone: boolean) => void
     filterBS: FilterValuesType
     removeTodolist: (todolistId: string) => void
 }
@@ -35,14 +35,14 @@ function TodoList(props: TodoListPropsType) {
     })
 
     //  если передаешь сам иншлстэйт то props.changeFilter === "значение"
-    const onAllClickHandler = () => props.changeFilter("All" , props.id);
-    const onActiveClickHandler = () => props.changeFilter("Active", props.id);
-    const onCompletedClickHandler = () => props.changeFilter("Completed", props.id);
+    const onAllClickHandler = () => props.changeFilter( props.id, "All" );
+    const onActiveClickHandler = () => props.changeFilter( props.id, "Active");
+    const onCompletedClickHandler = () => props.changeFilter(  props.id,"Completed");
 
     return (
         <>
             <div>
-                <button
+                <button className={"todoBtnDelete"}
                     onClick={ () => props.removeTodolist(props.id)}
                 >x</button>
                 <TodoListHeader title={props.titleOfTodo}/>
