@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from "./AddTodoList.module.css";
 
 export type AddTodolistType = {
-    addTodolist: ( newTodolistTitle: string) => void
+    addTodolist: ( newTodolistTitle: string ) => void
 }
 
 export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
@@ -15,7 +15,6 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
     }
     const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
-        /*if (e.ctrlKey || e.charCode === 13) {*/
         if (e.ctrlKey || e.key === "Enter") {
             addTaskHandler()
         }

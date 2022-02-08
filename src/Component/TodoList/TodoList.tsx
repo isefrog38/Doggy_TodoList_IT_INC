@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoListName from "../TodoListName";
+import {RenameSpanFunction} from "../RenameSpanFunction";
 import Button from "../Button";
 import AddPanel from "../AddPanel/AddPanel";
 import {FilterValuesType, TaskType} from "../../App";
@@ -9,16 +9,21 @@ type TodoListPropsType = {
     id: string
     titleOfTodo: string
     tasks: Array<TaskType>
-    removeTask: ( todolistId: string, taskID: string) => void
+    removeTask: (todolistId: string, taskID: string) => void
     changeFilter: (todolistId: string, filter: FilterValuesType) => void
-    addTask: ( todolistId: string, title: string) => void
-    changeTaskStatus: ( todolistId: string, taskId: string, isDone: boolean) => void
+    addTask: (todolistId: string, title: string) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     filterBS: FilterValuesType
     removeTodolist: (todolistId: string) => void
-    editTitleTodolist: ( todolistId: string, title: string) => void
+    editTitleTodolist: (todolistId: string, title: string) => void
+    editTitleTask: (todolistId: string, taskId: string, title: string) => void
 }
 
 function TodoList(props: TodoListPropsType) {
+
+    const editTitleTaskHand = (taskId: string, title: string) => {
+        props.editTitleTask( props.id, taskId, title)
+    }
 
     const tasksComponents = props.tasks.map((task) => {
         return (
@@ -30,15 +35,16 @@ function TodoList(props: TodoListPropsType) {
                 isDone={task.isDone}
                 removeTask={props.removeTask}
                 changeTaskStatus={props.changeTaskStatus}
+                editTitleTask={( title) => editTitleTaskHand(task.id, title)}
                 //или деструктуризировать {...task}
             />
         )
     })
 
     //  если передаешь сам иншлстэйт то props.changeFilter === "значение"
-    const onAllClickHandler = () => props.changeFilter( props.id, "All" );
-    const onActiveClickHandler = () => props.changeFilter( props.id, "Active");
-    const onCompletedClickHandler = () => props.changeFilter(  props.id,"Completed");
+    const onAllClickHandler = () => props.changeFilter(props.id, "All");
+    const onActiveClickHandler = () => props.changeFilter(props.id, "Active");
+    const onCompletedClickHandler = () => props.changeFilter(props.id, "Completed");
 
     const editTitleTodolistHandler = (title: string) => {
         props.editTitleTodolist(props.id, title)
@@ -48,10 +54,12 @@ function TodoList(props: TodoListPropsType) {
         <>
             <div>
                 <button className={"todoBtnDelete"}
-                    onClick={ () => props.removeTodolist(props.id)}
-                >x</button>
-                <TodoListName title={props.titleOfTodo} editTitleTodolist={editTitleTodolistHandler}/>
-
+                        onClick={() => props.removeTodolist(props.id)}
+                >x
+                </button>
+                <h3>
+                    <RenameSpanFunction title={props.titleOfTodo} editTitleTodolist={editTitleTodolistHandler}/>
+                </h3>
                 <AddPanel addTask={props.addTask} id={props.id}/>
 
                 <ul>
