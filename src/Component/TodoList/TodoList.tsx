@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoListHeader from "../TodoListHeader";
+import TodoListName from "../TodoListName";
 import Button from "../Button";
 import AddPanel from "../AddPanel/AddPanel";
 import {FilterValuesType, TaskType} from "../../App";
@@ -15,6 +15,7 @@ type TodoListPropsType = {
     changeTaskStatus: ( todolistId: string, taskId: string, isDone: boolean) => void
     filterBS: FilterValuesType
     removeTodolist: (todolistId: string) => void
+    editTitleTodolist: ( todolistId: string, title: string) => void
 }
 
 function TodoList(props: TodoListPropsType) {
@@ -39,13 +40,17 @@ function TodoList(props: TodoListPropsType) {
     const onActiveClickHandler = () => props.changeFilter( props.id, "Active");
     const onCompletedClickHandler = () => props.changeFilter(  props.id,"Completed");
 
+    const editTitleTodolistHandler = (title: string) => {
+        props.editTitleTodolist(props.id, title)
+    }
+
     return (
         <>
             <div>
                 <button className={"todoBtnDelete"}
                     onClick={ () => props.removeTodolist(props.id)}
                 >x</button>
-                <TodoListHeader title={props.titleOfTodo}/>
+                <TodoListName title={props.titleOfTodo} editTitleTodolist={editTitleTodolistHandler}/>
 
                 <AddPanel addTask={props.addTask} id={props.id}/>
 

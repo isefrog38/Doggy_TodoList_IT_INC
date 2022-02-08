@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./Component/TodoList/TodoList";
 import {v1} from 'uuid';
+import {AddTodolist} from "./Component/AddTodoList/AddTodoList";
+
 
 export type TaskType = {
     id: string
@@ -38,48 +40,48 @@ function App() {
             {id: v1(), title: "Meat", isDone: false},
         ],
     })
-
     let [todolists, setTodolist] = useState<Array<TodoListsType>>([
         {id: task1, title: "What to learn", filter: "All"},
         {id: task2, title: "What to buy", filter: "All"},
     ])
 
     const removeTodolist = (todolistId: string) => {
-        /*let filteredTodolist = todolists.filter(tl => tl.id !== todolistId);
-        setTodolist(filteredTodolist)
-        delete tasksObj[todolistId]
-        setTasks({...tasksObj})*/
-
         setTodolist(todolists.filter(f => f.id !== todolistId ? delete tasksObj[todolistId] : setTasks({...tasksObj})))
     }
-
     const removeTask = (todolistId: string, taskID: string) => {
         setTasks({...tasksObj, [todolistId]: tasksObj[todolistId].filter(t => t.id !== taskID)})
     }
-
     let changeFilter = (todolistId: string, value: FilterValuesType) => {
         setTodolist(todolists.map((m) => m.id === todolistId ? {...m, filter: value} : m));
     }
-
     // add tasks in TASKS STATE
     const addTask = (todolistId: string, title: string) => {
         let newTask = {id: v1(), title, isDone: false}
         setTasks({...tasksObj, [todolistId]: [newTask, ...tasksObj[todolistId]]})
     }
-
     function changeStatus(todolistId: string, tasksId: string, isDone: boolean) {
         setTasks({
             ...tasksObj,
             [todolistId]: [...tasksObj[todolistId].map(t => t.id === tasksId ? {...t, isDone} : t)]
         });
     }
+    const addTodolist = (title: string) => {
+        let newId = v1();
+        let newTodolist: TodoListsType = { id: newId, title, filter: "All"}
+        setTodolist([newTodolist, ...todolists]);
+        setTasks({ [newId] : [], ...tasksObj})
+    }
+    const editTitleTodolist = (todolistId: string, title: string) => {
+        console.log("logasd")
+    }
+
 
     //UI
     return (
         <div className={"App"}>
+            <AddTodolist addTodolist={addTodolist} />
             {
                 todolists.map((tl) => {
-
                     // Sam Filter
                     let tasksForRender = tasksObj[tl.id]
                     if (tl.filter === "Active") {
@@ -111,6 +113,8 @@ function App() {
                                 filterBS={tl.filter}
                                 // delete All todoLIST
                                 removeTodolist={removeTodolist}
+                                // titleTODOLIST
+                                editTitleTodolist={editTitleTodolist}
                             />
                         </div>
                     )
