@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./Component/TodoList/TodoList";
 import {v1} from 'uuid';
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar} from "@mui/material";
+import {Menu} from "@mui/icons-material";
 import {AddTodolist} from "./Component/AddTodoList/AddTodoList";
-import {NavigationPanel} from "./Component/NavigationPanel/NavigationPanel";
 
 export type TaskType = {
     id: string
@@ -76,54 +77,67 @@ const App = () => {
 
     //UI
     return (
-        <>
-            <NavigationPanel addTodolist={addTodolist}/>
-            <div className={"App"}>
+        <Container maxWidth={"xl"} className={"App"}>
+            <AppBar position={"static"}>
+                <Grid container>
+                    <Toolbar>
+                        <IconButton edge={"start"} color={"inherit"} aria-label={"menu"} >
+                            <Menu/>
+                        </IconButton>
 
-                {
-                    todolists.map((tl) => {
-                        // Sam Filter
-                        let tasksForRender = tasksObj[tl.id]
-                        if (tl.filter === "Active") {
-                            tasksForRender = tasksForRender.filter(t => !t.isDone)
-                        } else if (tl.filter === "Completed") {
-                            tasksForRender = tasksForRender.filter(t => t.isDone)
-                        }
+                        <AddTodolist addTodolist={addTodolist}/>
+                        <Button variant={"outlined"} color={"inherit"} >Login</Button>
+                    </Toolbar>
+                </Grid>
+            </AppBar>
 
-                        return (
-                            <div className={"todolistBlock"}>
-                                <TodoList
-                                    // ключи обязательны
-                                    key={tl.id}
-                                    // id
-                                    id={tl.id}
-                                    // name
-                                    titleOfTodo={tl.title}
-                                    // useState
-                                    tasks={tasksForRender}
-                                    // props na remove
-                                    removeTask={removeTask}
-                                    // props na button filter
-                                    changeFilter={changeFilter}
-                                    // addTask
-                                    addTask={addTask}
-                                    // changeStatus
-                                    changeTaskStatus={changeStatus}
-                                    // filter button style
-                                    filterBS={tl.filter}
-                                    // delete All todoLIST
-                                    removeTodolist={removeTodolist}
-                                    // RenameTitleTODOLIST
-                                    editTitleTodolist={editTitleTodolist}
-                                    // taskRename
-                                    editTitleTask={editTitleTask}
-                                />
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        </>
+                <Grid container spacing={3}>
+                    {
+                        todolists.map((tl) => {
+                            // Sam Filter
+                            let tasksForRender = tasksObj[tl.id]
+                            if (tl.filter === "Active") {
+                                tasksForRender = tasksForRender.filter(t => !t.isDone)
+                            } else if (tl.filter === "Completed") {
+                                tasksForRender = tasksForRender.filter(t => t.isDone)
+                            }
+
+                            return (
+                                <Grid item key={tl.id}>
+                                    <Paper style={{marginTop: "30px", padding: "30px", alignItems: "center"}} elevation={3}>
+                                        <TodoList
+                                            // ключи обязательны
+                                            key={tl.id}
+                                            // id
+                                            id={tl.id}
+                                            // name
+                                            titleOfTodo={tl.title}
+                                            // useState
+                                            tasks={tasksForRender}
+                                            // props na remove
+                                            removeTask={removeTask}
+                                            // props na button filter
+                                            changeFilter={changeFilter}
+                                            // addTask
+                                            addTask={addTask}
+                                            // changeStatus
+                                            changeTaskStatus={changeStatus}
+                                            // filter button style
+                                            filterBS={tl.filter}
+                                            // delete All todoLIST
+                                            removeTodolist={removeTodolist}
+                                            // RenameTitleTODOLIST
+                                            editTitleTodolist={editTitleTodolist}
+                                            // taskRename
+                                            editTitleTask={editTitleTask}
+                                        />
+                                    </Paper>
+                                </Grid>
+                            )
+                        })
+                    }
+                </Grid>
+        </Container>
     );
 }
 

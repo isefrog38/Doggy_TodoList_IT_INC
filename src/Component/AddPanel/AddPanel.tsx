@@ -1,5 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from "./AddPanel.module.css";
+import {AddBoxTwoTone} from "@mui/icons-material";
+import {IconButton, TextField} from "@mui/material";
+
 
 type AddPanelType = {
     id: string
@@ -30,19 +33,25 @@ function AddPanel(props: AddPanelType) {
         }
     }
 
-
     return (
         <div>
-            <input className={error ? s.error : ""}
-                   value={newTaskTitle}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressAddTask}/>
-            <button className={s.ButtonStyle}
-                onClick={addTaskHandler}>+
-            </button>
-            {error && <div className={s.error_message}>{error}</div>}
+            <TextField
+                helperText={error}
+                error={!!error}
+                variant={"standard"}
+                label={"Name of your task"}
+                id={"outlined-basic"}
+                value={newTaskTitle}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressAddTask}/>
+            <IconButton
+                onClick={addTaskHandler}>
+                <AddBoxTwoTone />
+            </IconButton>
         </div>
     );
 }
 
 export default AddPanel;
+
+

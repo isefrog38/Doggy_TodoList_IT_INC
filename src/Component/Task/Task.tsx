@@ -2,6 +2,8 @@ import React, {ChangeEvent} from 'react';
 import {TaskType} from "../../App";
 import s from "./Task.module.css";
 import {RenameSpanFunction} from "../RenameSpanFunction";
+import {DeleteTwoTone} from "@mui/icons-material";
+import {Checkbox, IconButton} from "@mui/material";
 
 type TaskPropsType = TaskType & {
     todolistId: string
@@ -22,11 +24,17 @@ const Task: React.FC<TaskPropsType> = ({id, title, isDone, removeTask, changeTas
         <div className={s.container}>
             <li key={id}
                 className={isDone ? s.is_done : ""}>
-                <input onChange={onChangeHandler}
-                       type={"checkbox"}
-                       checked={isDone}/>
+                <Checkbox
+                          defaultChecked color="default"
+                          checked={isDone}
+                          onChange={onChangeHandler}
+                />
                 <RenameSpanFunction title={title} editTitleTodolist={onEditTitleTaskHandler}/>
-                <button onClick={onClickRemoveTask}>X</button>
+                <IconButton
+                    onClick={onClickRemoveTask}>
+                    <DeleteTwoTone />
+                </IconButton>
+
             </li>
         </div>
     )

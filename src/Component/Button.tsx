@@ -1,6 +1,7 @@
 import React from 'react';
 import s from "./TodoList/TodoList.module.css";
 import {FilterValuesType} from "../App";
+import {Button} from "@mui/material";
 
 type ButtonPropsType = {
     title: string
@@ -8,13 +9,15 @@ type ButtonPropsType = {
     activeButton: FilterValuesType
 }
 
-function Button({title, onClickHandler, activeButton}: ButtonPropsType) {
+function Buttons({title, onClickHandler, activeButton}: ButtonPropsType) {
     return (
-        <button className={activeButton === title ? s.active : ""}
+        <Button
+            color={"primary"}
+            variant={activeButton === title ? "contained" : "outlined"}
             onClick={onClickHandler}>
             {title}
-        </button>
+        </Button>
     )
 }
 
-export default Button;
+export default Buttons;

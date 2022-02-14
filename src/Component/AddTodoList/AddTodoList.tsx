@@ -1,8 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from "./AddTodoList.module.css";
+import {IconButton, TextField} from "@mui/material";
+import {AddBoxTwoTone} from "@mui/icons-material";
 
 export type AddTodolistType = {
-    addTodolist: ( newTodolistTitle: string ) => void
+    addTodolist: (newTodolistTitle: string) => void
 }
 
 export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
@@ -13,7 +15,7 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTodolistTitle(e.currentTarget.value)
     }
-    const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyPressAddTodo = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (e.ctrlKey || e.key === "Enter") {
             addTaskHandler()
@@ -31,14 +33,19 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
     return (
         <div className={s.main}>
             <div>
-                <input className={error ? s.error : ""}
-                       value={newTodolisTitle}
-                       onChange={onChangeHandler}
-                       onKeyPress={onKeyPressAddTask}/>
-                <button className={s.ButtonStyle}
-                        onClick={addTaskHandler}>+
-                </button>
-                {error && <div className={s.error_message}>{error}</div>}
+                <TextField
+                    helperText={error}
+                    error={!!error}
+                    variant={"standard"}
+                    label={"Add Name to Todolist"}
+                    id={"outlined-basic"}
+                    value={newTodolisTitle}
+                    onChange={onChangeHandler}
+                    onKeyPress={onKeyPressAddTodo}/>
+                <IconButton
+                    onClick={addTaskHandler}>
+                    <AddBoxTwoTone/>
+                </IconButton>
             </div>
         </div>
     );

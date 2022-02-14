@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
+import {TextField} from "@mui/material";
 
 type TodoListHeaderPropsType = {
     title: string
@@ -18,7 +19,7 @@ export function RenameSpanFunction ({title, ...props}: TodoListHeaderPropsType) 
 
     return (
         edit
-           ? <input value={newTitle} onChange={ onChangeHandler } autoFocus onBlur={ onBlurHandler }/>
+           ? <TextField variant={"standard"} value={newTitle} onChange={ onChangeHandler } autoFocus onBlur={ onBlurHandler }/>
             : <span onDoubleClick={ onClick } >{title}</span>
 
     );

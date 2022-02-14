@@ -4,6 +4,8 @@ import Button from "../Button";
 import AddPanel from "../AddPanel/AddPanel";
 import {FilterValuesType, TaskType} from "../../App";
 import Task from "../Task/Task";
+import {DeleteTwoTone} from "@mui/icons-material";
+import {IconButton} from "@mui/material";
 
 type TodoListPropsType = {
     id: string
@@ -45,18 +47,15 @@ function TodoList(props: TodoListPropsType) {
     const onAllClickHandler = () => props.changeFilter(props.id, "All");
     const onActiveClickHandler = () => props.changeFilter(props.id, "Active");
     const onCompletedClickHandler = () => props.changeFilter(props.id, "Completed");
-
-    const editTitleTodolistHandler = (title: string) => {
-        props.editTitleTodolist(props.id, title)
-    }
+    const editTitleTodolistHandler = (title: string) => props.editTitleTodolist(props.id, title);
 
     return (
         <>
             <div>
-                <button className={"todoBtnDelete"}
-                        onClick={() => props.removeTodolist(props.id)}
-                >x
-                </button>
+                <IconButton
+                    onClick={() => props.removeTodolist(props.id)}>
+                    <DeleteTwoTone />
+                </IconButton>
                 <h3>
                     <RenameSpanFunction title={props.titleOfTodo} editTitleTodolist={editTitleTodolistHandler}/>
                 </h3>
