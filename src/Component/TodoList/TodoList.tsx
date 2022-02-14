@@ -52,7 +52,7 @@ function TodoList(props: TodoListPropsType) {
     return (
         <>
             <div>
-                <IconButton
+                <IconButton style={{float:"right"}}
                     onClick={() => props.removeTodolist(props.id)}>
                     <DeleteTwoTone />
                 </IconButton>
