@@ -34,6 +34,7 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
         <div className={s.main}>
             <div>
                 <TextField
+                    size={"small"}
                     helperText={error}
                     error={!!error}
                     variant={"standard"}

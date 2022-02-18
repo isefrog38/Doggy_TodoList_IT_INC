@@ -18,7 +18,7 @@ type TodoListsType = {
 }
 export type FilterValuesType = "All" | "Active" | "Completed"
 
-const App = () => {
+export const App = () => {
 
     const task1 = v1();
     const task2 = v1();
@@ -78,15 +78,17 @@ const App = () => {
     //UI
     return (
         <Container maxWidth={"xl"} className={"App"}>
-            <AppBar position={"static"}>
+            <AppBar position={"static"} color={"secondary"}>
                 <Grid container>
                     <Toolbar>
-                        <IconButton edge={"start"} color={"inherit"} aria-label={"menu"} >
+                        <IconButton
+                                color={"inherit"}
+                                aria-label={"menu"}
+                                size="large">
                             <Menu/>
                         </IconButton>
-
                         <AddTodolist addTodolist={addTodolist}/>
-                        <Button variant={"outlined"} color={"inherit"} >Login</Button>
+                        <Button variant={"outlined"} color={"inherit"}>Login</Button>
                     </Toolbar>
                 </Grid>
             </AppBar>
@@ -141,4 +143,3 @@ const App = () => {
     );
 }
 
-export default App;

@@ -38,12 +38,10 @@ function TodoList(props: TodoListPropsType) {
                 removeTask={props.removeTask}
                 changeTaskStatus={props.changeTaskStatus}
                 editTitleTask={( title) => editTitleTaskHand(task.id, title)}
-                //или деструктуризировать {...task}
             />
         )
     })
 
-    //  если передаешь сам иншлстэйт то props.changeFilter === "значение"
     const onAllClickHandler = () => props.changeFilter(props.id, "All");
     const onActiveClickHandler = () => props.changeFilter(props.id, "Active");
     const onCompletedClickHandler = () => props.changeFilter(props.id, "Completed");
@@ -60,7 +58,6 @@ function TodoList(props: TodoListPropsType) {
                     <RenameSpanFunction title={props.titleOfTodo} editTitleTodolist={editTitleTodolistHandler}/>
                 </h3>
                 <AddPanel addTask={props.addTask} id={props.id}/>
-
                 <ul>
                     {tasksComponents}
                 </ul>

@@ -36,6 +36,8 @@ function AddPanel(props: AddPanelType) {
     return (
         <div>
             <TextField
+                size={"small"}
+                color={"secondary"}
                 helperText={error}
                 error={!!error}
                 variant={"standard"}
