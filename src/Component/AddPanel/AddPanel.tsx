@@ -1,5 +1,4 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import s from "./AddPanel.module.css";
 import {AddBoxTwoTone} from "@mui/icons-material";
 import {IconButton, TextField} from "@mui/material";
 
