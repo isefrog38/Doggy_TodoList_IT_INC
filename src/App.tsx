@@ -97,7 +97,6 @@ export const App = React.memo(() => {
 
          <Grid container spacing={3}>
             {todoLists.map((tl) => {
-               // Sam Filter
 
                return (
                   <Grid item key={tl.id}>
