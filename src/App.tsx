@@ -15,29 +15,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { StoreType } from './Redux-Reducers/redux-state'
 
 export const App = React.memo(() => {
-   /*
-        const task1 = v1();
-    const task2 = v1();
-    let [tasksObj, setTasks] = useState({
-        [task1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS/ES6", isDone: true},
-            {id: v1(), title: "React", isDone: true},
-            {id: v1(), title: "Redux-Reducers", isDone: false},
-            {id: v1(), title: "Bootstrap", isDone: false},
-        ],
-        [task2]: [
-            {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "Chips", isDone: true},
-            {id: v1(), title: "Bread", isDone: true},
-            {id: v1(), title: "Beer", isDone: false},
-            {id: v1(), title: "Meat", isDone: false},
-        ],
-    })
-    let [todolists, setTodolist] = useState<Array<TodoListsType>>([
-        {id: task1, title: "What to learn", filter: "All"},
-        {id: task2, title: "What to buy", filter: "All"},
-    ])*/
 
    const dispatch = useDispatch()
    const todoLists = useSelector<StoreType, TodoListsType[]>(
@@ -45,34 +22,8 @@ export const App = React.memo(() => {
    )
 
    const addTodolist = (title: string) => {
-      /* let newId = v1();
-         let newTodolist: TodoListsType = {id: newId, title, filter: "All"}
-         setTodolist([newTodolist, ...todolists]);
-         setTasks({[newId]: [], ...tasksObj})*/
       dispatch(addTodolistAC(title))
    }
-   /*const removeTask = (todolistId: string, taskID: string) => {
-        dispatch(removeTaskAC(todolistId, taskID))
-    };*/
-   /*const changeFilter = (todolistId: string, value: FilterValuesType) => {
-        dispatch(changeFilterAC(todolistId, value))
-    };*/
-   /*const editTitleTask = (todolistId: string, taskId: string, title: string) => {
-        dispatch(editTitleTaskAC(todolistId, taskId, title))
-    };*/
-   /*const addTask = (todolistId: string, title: string) => {
-        dispatch(addTaskAC(todolistId, title));
-    };*/
-   /*    const changeStatus = (todolistId: string, tasksId: string, isDone: boolean) => {
-        dispatch(changeStatusTaskAC(todolistId, tasksId, isDone))
-        /!*setTasks(...tasksObj, [todolistId]: [...tasksObj[todolistId].map(t => t.id === tasksId ? {...t, isDone} : t)]})*!/
-    };*/
-   /* const editTitleTodolist = (todolistId: string, title: string) => {
-       dispatch(editTitleTodolistAC(todolistId, title))
-    };*/
-   /*const removeTodolist = (todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId))
-    };*/
 
    //UI
    return (

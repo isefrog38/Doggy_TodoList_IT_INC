@@ -47,7 +47,7 @@ test("Remove tasks from todolist" , () => {
         ]}
 
     ///
-        const action = removeTaskAC(todolistId1, taskId1);
+        const action = removeTaskAC(taskId1, todolistId1);
 
 
         const endState = taskReducer(startState, action);
