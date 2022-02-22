@@ -1,9 +1,14 @@
 import {v1} from "uuid";
-import {TaskType} from "../App";
-import  { todolistId1, todolistId2 } from "./Todolist-Reducer";
+import  {todolistId1} from "./Todolist-Reducer";
 
+export type TaskType = {
+    id: string
+    title: string
+    isDone: boolean
+};
+export type FilterValuesType = "All" | "Active" | "Completed";
 type AllActionTaskType = AddTaskActionType | RemoveTaskActionType | ChangeStatusTaskActionType | EditTitleTaskActionType;
-type initialStateType = {
+export type initialStateType = {
     [key: string]: TaskType[]
 };
 
@@ -12,16 +17,16 @@ const initialState: initialStateType = {
         {id: v1(), title: "HTML&CSS", isDone: true},
         {id: v1(), title: "JS/ES6", isDone: true},
         {id: v1(), title: "React", isDone: true},
-        {id: v1(), title: "Redux", isDone: false},
+        {id: v1(), title: "Redux-Reducers", isDone: false},
         {id: v1(), title: "Bootstrap", isDone: false},
     ],
-    [todolistId2]: [
+    /*[todolistId2]: [
         {id: v1(), title: "Milk", isDone: true},
         {id: v1(), title: "Chips", isDone: true},
         {id: v1(), title: "Bread", isDone: true},
         {id: v1(), title: "Beer", isDone: false},
         {id: v1(), title: "Meat", isDone: false},
-    ],
+    ],*/
 }
 
 export const taskReducer = (state = initialState, action: AllActionTaskType): initialStateType => {

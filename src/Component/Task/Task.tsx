@@ -1,43 +1,43 @@
 import React, {ChangeEvent} from 'react';
-import {TaskType} from "../../App";
 import s from "./Task.module.css";
 import {RenameSpanFunction} from "../RenameSpanFunction";
 import {DeleteTwoTone} from "@mui/icons-material";
 import {Checkbox, IconButton} from "@mui/material";
+import {changeStatusTaskAC, editTitleTaskAC, removeTaskAC, TaskType} from "../../Redux-Reducers/Task-Reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {StoreType} from "../../Redux-Reducers/redux-state";
 
-type TaskPropsType = TaskType & {
+type TaskPropsType = {
     todolistId: string
-    removeTask: (taskID: string, todolistId: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
-    editTitleTask: (title: string) => void
+    taskId: string
 }
 
-const Task: React.FC<TaskPropsType> = ({id, title, isDone, removeTask, changeTaskStatus, todolistId,editTitleTask}) => {
+export const Task: React.FC<TaskPropsType> = ({todolistId, taskId}) => {
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, id, e.currentTarget.checked);
-    const onClickRemoveTask = () => removeTask(todolistId, id);
-    const onEditTitleTaskHandler = (title: string) => {
-        editTitleTask( title)
-    }
+    const dispatch = useDispatch();
+    const task = useSelector<StoreType, TaskType | undefined>(state => state.taskReducer[todolistId].find(t => t.id === taskId));
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeStatusTaskAC(todolistId, taskId, e.currentTarget.checked));
+    const onClickRemoveTask = () => dispatch(removeTaskAC(taskId, todolistId));
+    const onEditTitleTaskHandler = (title: string) => dispatch(editTitleTaskAC(title, todolistId, taskId));
+
+    if(!task) return <div>Error...</div>
 
     return (
         <div className={s.container}>
-            <li key={id}
-                className={isDone ? s.is_done : ""}>
+            <li key={taskId}
+                className={task.isDone ? s.is_done : ""}>
                 <Checkbox
-                          defaultChecked color="default"
-                          checked={isDone}
+                    color="default"
+                          checked={task.isDone}
                           onChange={onChangeHandler}
                 />
-                <RenameSpanFunction title={title} editTitleTodolist={onEditTitleTaskHandler}/>
+                <RenameSpanFunction title={task.title} editTitle={onEditTitleTaskHandler}/>
                 <IconButton
                     onClick={onClickRemoveTask}>
                     <DeleteTwoTone />
                 </IconButton>
-
             </li>
         </div>
     )
-};
-
-export default Task;
+}

@@ -3,16 +3,16 @@ import {TextField} from "@mui/material";
 
 type TodoListHeaderPropsType = {
     title: string
-    editTitleTodolist: ( title: string) => void
+    editTitle: ( title: string) => void
 }
 
-export function RenameSpanFunction ({title, ...props}: TodoListHeaderPropsType) {
-    const [newTitle, setNewTitle] = useState<string>(title);
+export function RenameSpanFunction (props: TodoListHeaderPropsType) {
+    const [newTitle, setNewTitle] = useState<string>(props.title);
     const [edit, setShowInput] = useState<boolean>(false);
 
     const onClick = () => setShowInput(!edit)
     const onBlurHandler = () => {
-        props.editTitleTodolist(newTitle)
+        props.editTitle(newTitle)
         setShowInput(!edit)
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
@@ -20,7 +20,7 @@ export function RenameSpanFunction ({title, ...props}: TodoListHeaderPropsType) 
     return (
         edit
            ? <TextField style={{width: "120px"}} color={"secondary"} variant={"standard"} value={newTitle} onChange={ onChangeHandler } autoFocus onBlur={ onBlurHandler }/>
-            : <span onDoubleClick={ onClick } >{title}</span>
+            : <span onDoubleClick={ onClick } >{props.title}</span>
 
     );
 }

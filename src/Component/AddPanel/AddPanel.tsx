@@ -5,10 +5,10 @@ import {IconButton, TextField} from "@mui/material";
 
 type AddPanelType = {
     id: string
-    addTask: ( todolistId: string, title: string) => void
+    addTask: (todolistId: string, title: string) => void
 }
 
-function AddPanel(props: AddPanelType) {
+export const AddPanel = React.memo((props: AddPanelType) => {
 
     const [newTaskTitle, setNewTaskTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,6 @@ function AddPanel(props: AddPanelType) {
     }
     const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
-        /*if (e.ctrlKey || e.charCode === 13) {*/
         if (e.ctrlKey || e.key === "Enter") {
             addTaskHandler()
         }
@@ -51,8 +50,7 @@ function AddPanel(props: AddPanelType) {
             </IconButton>
         </div>
     );
-}
+})
 
-export default AddPanel;
 
 

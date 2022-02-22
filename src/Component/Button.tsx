@@ -1,6 +1,6 @@
 import React from 'react';
-import {FilterValuesType} from "../App";
 import {Button} from "@mui/material";
+import {FilterValuesType} from "../Redux-Reducers/Task-Reducer";
 
 type ButtonPropsType = {
     title: string

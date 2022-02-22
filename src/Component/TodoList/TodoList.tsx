@@ -1,74 +1,76 @@
 import React from 'react';
 import {RenameSpanFunction} from "../RenameSpanFunction";
 import Button from "../Button";
-import AddPanel from "../AddPanel/AddPanel";
-import {FilterValuesType, TaskType} from "../../App";
-import Task from "../Task/Task";
+import {AddPanel} from "../AddPanel/AddPanel";
 import {DeleteTwoTone} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
+import {addTaskAC, FilterValuesType, TaskType} from "../../Redux-Reducers/Task-Reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {StoreType} from "../../Redux-Reducers/redux-state";
+import {Task} from "../Task/Task";
+import {
+    changeFilterAC,
+    editTitleTodolistAC,
+    removeTodolistAC,
+    TodoListsType
+} from "../../Redux-Reducers/Todolist-Reducer";
 
 type TodoListPropsType = {
-    id: string
-    titleOfTodo: string
-    tasks: Array<TaskType>
-    removeTask: (todolistId: string, taskID: string) => void
-    changeFilter: (todolistId: string, filter: FilterValuesType) => void
-    addTask: (todolistId: string, title: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    todolistId: string
     filterBS: FilterValuesType
-    removeTodolist: (todolistId: string) => void
-    editTitleTodolist: (todolistId: string, title: string) => void
-    editTitleTask: (todolistId: string, taskId: string, title: string) => void
 }
 
-function TodoList(props: TodoListPropsType) {
 
-    const editTitleTaskHand = (taskId: string, title: string) => {
-        props.editTitleTask( props.id, taskId, title)
-    }
 
-    const tasksComponents = props.tasks.map((task) => {
+function TodoList({todolistId, filterBS}: TodoListPropsType) {
+
+    const dispatch = useDispatch();
+    const tasks = useSelector<StoreType, TaskType[]>(state => state.taskReducer[todolistId]);
+    const todoLists = useSelector<StoreType, TodoListsType | undefined>(state => state.todolistReducer.todolists.find(todo => todo.id === todolistId));
+
+    const tasksComponents = tasks.map((task) => {
         return (
             <Task
                 key={task.id}
-                id={task.id}
-                todolistId={props.id}
-                title={task.title}
-                isDone={task.isDone}
-                removeTask={props.removeTask}
-                changeTaskStatus={props.changeTaskStatus}
-                editTitleTask={( title) => editTitleTaskHand(task.id, title)}
+                taskId={task.id}
+                todolistId={todolistId}
             />
         )
     })
 
-    const onAllClickHandler = () => props.changeFilter(props.id, "All");
-    const onActiveClickHandler = () => props.changeFilter(props.id, "Active");
-    const onCompletedClickHandler = () => props.changeFilter(props.id, "Completed");
-    const editTitleTodolistHandler = (title: string) => props.editTitleTodolist(props.id, title);
+    const onAllClickHandler = () => dispatch(changeFilterAC(todolistId, "All"));
+    const onActiveClickHandler = () => dispatch(changeFilterAC(todolistId, "Active"));
+    const onCompletedClickHandler = () => dispatch(changeFilterAC(todolistId, "Completed"));
+
+    const editTitleTodolistHandler = (title: string) => dispatch(editTitleTodolistAC(todolistId, title));
+    const RemoveTodolist = () => dispatch(removeTodolistAC(todolistId));
+
+    const addTask = (todolistId: string, title: string) => dispatch(addTaskAC(todolistId, title));
+
+    if(!todoLists) return <div>Error...</div>
 
     return (
         <>
             <div>
                 <IconButton style={{float:"right"}}
-                    onClick={() => props.removeTodolist(props.id)}>
+                    onClick={RemoveTodolist}>
                     <DeleteTwoTone />
                 </IconButton>
                 <h3>
-                    <RenameSpanFunction title={props.titleOfTodo} editTitleTodolist={editTitleTodolistHandler}/>
+                    <RenameSpanFunction title={todoLists.title} editTitle={editTitleTodolistHandler}/>
                 </h3>
-                <AddPanel addTask={props.addTask} id={props.id}/>
+                <AddPanel addTask={addTask} id={todolistId}/>
                 <ul>
                     {tasksComponents}
                 </ul>
                 <div>
-                    <Button activeButton={props.filterBS}
+                    <Button activeButton={filterBS}
                             onClickHandler={onAllClickHandler}
                             title={"All"}/>
-                    <Button activeButton={props.filterBS}
+                    <Button activeButton={filterBS}
                             onClickHandler={onActiveClickHandler}
                             title={"Active"}/>
-                    <Button activeButton={props.filterBS}
+                    <Button activeButton={filterBS}
                             onClickHandler={onCompletedClickHandler}
                             title={"Completed"}/>
                 </div>
