@@ -19,7 +19,7 @@ export const Task: React.FC<TaskPropsType> = ({todolistId, taskId}) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeStatusTaskAC(todolistId, taskId, e.currentTarget.checked));
     const onClickRemoveTask = () => dispatch(removeTaskAC(taskId, todolistId));
-    const onEditTitleTaskHandler = (title: string) => dispatch(editTitleTaskAC(title, todolistId, taskId));
+    const onEditTitleTaskHandler = (title: string) => dispatch(editTitleTaskAC(todolistId, taskId, title));
 
     if(!task) return <div>Error...</div>
 
