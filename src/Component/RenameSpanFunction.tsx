@@ -19,7 +19,7 @@ export function RenameSpanFunction (props: TodoListHeaderPropsType) {
 
     return (
         edit
-           ? <TextField style={{width: "120px"}} color={"secondary"} variant={"standard"} value={newTitle} onChange={ onChangeHandler } autoFocus onBlur={ onBlurHandler }/>
+           ? <TextField style={{width: "120px"}} color={"success"} variant={"standard"} value={newTitle} onChange={ onChangeHandler } autoFocus onBlur={ onBlurHandler }/>
             : <span onDoubleClick={ onClick } >{props.title}</span>
 
     );

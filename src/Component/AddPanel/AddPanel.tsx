@@ -43,7 +43,8 @@ export const AddPanel = React.memo((props: AddPanelType) => {
                 id={"outlined-basic"}
                 value={newTaskTitle}
                 onChange={onChangeHandler}
-                onKeyPress={onKeyPressAddTask}/>
+                onKeyPress={onKeyPressAddTask}
+                autoComplete={"offline"}/>
             <IconButton
                 onClick={addTaskHandler}>
                 <AddBoxTwoTone />

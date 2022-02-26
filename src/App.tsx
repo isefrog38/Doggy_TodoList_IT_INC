@@ -40,9 +40,6 @@ export const App = React.memo(() => {
                                 <Menu/>
                             </IconButton>
                             <AddTodolist addTodolist={addTodolist}/>
-                            <Button variant={'outlined'} color={'inherit'}>
-                                Login
-                            </Button>
                         </Toolbar>
                     </Grid>
                 </Container>

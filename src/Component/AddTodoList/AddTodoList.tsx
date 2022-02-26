@@ -9,7 +9,7 @@ export type AddTodolistType = {
 
 export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
 
-    const [newTodolisTitle, setNewTodolistTitle] = useState<string>("");
+    const [newTodolistTitle, setNewTodolistTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +22,8 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
         }
     }
     const addTaskHandler = () => {
-        if (newTodolisTitle.trim() !== "") {
-            addTodolist(newTodolisTitle)
+        if (newTodolistTitle.trim() !== "") {
+            addTodolist(newTodolistTitle)
             setNewTodolistTitle("")
         } else {
             setError("Title is required !")
@@ -32,18 +32,19 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
 
     return (
         <div className={s.main}>
-            <div style={{color: "white"}}>
+            <div>
                 <TextField
                     size={"small"}
                     helperText={error}
-                    color={"success"}
+                    color={"warning"}
                     error={!!error}
                     variant={"standard"}
                     label={"Add Name to Todolist"}
                     id={"outlined-basic"}
-                    value={newTodolisTitle}
+                    value={newTodolistTitle}
                     onChange={onChangeHandler}
-                    onKeyPress={onKeyPressAddTodo}/>
+                    onKeyPress={onKeyPressAddTodo}
+                />
                 <IconButton
                     onClick={addTaskHandler}>
                     <AddBoxTwoTone/>
