@@ -35,7 +35,7 @@ export const AddPanel = React.memo((props: AddPanelType) => {
         <div>
             <TextField
                 size={"small"}
-                color={"secondary"}
+                color={"success"}
                 helperText={error}
                 error={!!error}
                 variant={"standard"}

@@ -11,7 +11,7 @@ type ButtonPropsType = {
 function Buttons({title, onClickHandler, activeButton}: ButtonPropsType) {
     return (
         <Button
-            color={activeButton === title ? "secondary" : "secondary"}
+            color={activeButton === title ? "success" : "success"}
             variant={activeButton === title ? "contained" : "outlined"}
             onClick={onClickHandler}>
             {title}

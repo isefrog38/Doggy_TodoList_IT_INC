@@ -32,10 +32,11 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
 
     return (
         <div className={s.main}>
-            <div>
+            <div style={{color: "white"}}>
                 <TextField
                     size={"small"}
                     helperText={error}
+                    color={"success"}
                     error={!!error}
                     variant={"standard"}
                     label={"Add Name to Todolist"}
