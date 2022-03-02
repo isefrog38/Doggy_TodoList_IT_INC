@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f440c48fb0fcd3dc625de0b233578a64",
+    "revision": "429051e11d14e8c79b8c488198b4deba",
     "url": "/Doggy_TodoList_IT_INC/index.html"
   },
   {
-    "revision": "ba41f16a7c95777dcbba",
-    "url": "/Doggy_TodoList_IT_INC/static/css/main.6c9e0b5f.chunk.css"
+    "revision": "56fb56a8cb71d272da0d",
+    "url": "/Doggy_TodoList_IT_INC/static/css/main.3e0f02dc.chunk.css"
   },
   {
-    "revision": "357da77526992fe79328",
-    "url": "/Doggy_TodoList_IT_INC/static/js/2.6993d98f.chunk.js"
+    "revision": "8f8ea34afcc36b6e53ce",
+    "url": "/Doggy_TodoList_IT_INC/static/js/2.31ab6e55.chunk.js"
   },
   {
     "revision": "b3019697dd82d502c1d7617184405246",
-    "url": "/Doggy_TodoList_IT_INC/static/js/2.6993d98f.chunk.js.LICENSE.txt"
+    "url": "/Doggy_TodoList_IT_INC/static/js/2.31ab6e55.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ba41f16a7c95777dcbba",
-    "url": "/Doggy_TodoList_IT_INC/static/js/main.177615e1.chunk.js"
+    "revision": "56fb56a8cb71d272da0d",
+    "url": "/Doggy_TodoList_IT_INC/static/js/main.5bc0876d.chunk.js"
   },
   {
     "revision": "508ea3c1276812f0cb94",
