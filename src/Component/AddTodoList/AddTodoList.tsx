@@ -7,7 +7,7 @@ export type AddTodolistType = {
     addTodolist: (newTodolistTitle: string) => void
 }
 
-export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
+export const AddTodolist = React.memo(({addTodolist, ...props}: AddTodolistType) => {
 
     const [newTodolistTitle, setNewTodolistTitle] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -52,4 +52,4 @@ export const AddTodolist = ({addTodolist, ...props}: AddTodolistType) => {
             </div>
         </div>
     );
-};
+});

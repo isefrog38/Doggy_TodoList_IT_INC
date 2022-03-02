@@ -1,31 +1,21 @@
-import React from 'react'
-import { RenameSpanFunction } from '../RenameSpanFunction'
-import Button from '../Button'
-import { AddPanel } from '../AddPanel/AddPanel'
-import { DeleteTwoTone } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
-import {
-   addTaskAC,
-   FilterValuesType,
-   TaskType,
-} from '../../Redux-Reducers/Task-Reducer'
-import { useDispatch, useSelector } from 'react-redux'
-import { StoreType } from '../../Redux-Reducers/redux-state'
-import { Task } from '../Task/Task'
-import {
-   changeFilterAC,
-   editTitleTodolistAC,
-   removeTodolistAC,
-   TodoListsType,
-} from '../../Redux-Reducers/Todolist-Reducer'
-import { tabsListUnstyledClasses } from '@mui/base'
+import React from 'react';
+import { RenameSpanFunction } from '../RenameSpanFunction';
+import Button from '../Button';
+import { AddPanel } from '../AddPanel/AddPanel';
+import { DeleteTwoTone } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { addTaskAC, FilterValuesType, TaskType,} from '../../Redux-Reducers/Task-Reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreType } from '../../Redux-Reducers/store-redux';
+import { Task } from '../Task/Task';
+import { changeFilterAC, editTitleTodolistAC, removeTodolistAC, TodoListsType,} from '../../Redux-Reducers/Todolist-Reducer';
 
 type TodoListPropsType = {
    todolistId: string
    filterBS: FilterValuesType
-}
+};
 
-function TodoList({ todolistId, filterBS }: TodoListPropsType) {
+export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType) => {
    const dispatch = useDispatch()
    const tasks = useSelector<StoreType, TaskType[]>(
       (state) => state.taskReducer[todolistId]
@@ -46,12 +36,10 @@ function TodoList({ todolistId, filterBS }: TodoListPropsType) {
       return <Task key={task.id} taskId={task.id} todolistId={todolistId} />
    })
 
-   const onAllClickHandler = () => dispatch(changeFilterAC(todolistId, 'All'))
-   const onActiveClickHandler = () =>
-      dispatch(changeFilterAC(todolistId, 'Active'))
-   const onCompletedClickHandler = () => {
-      dispatch(changeFilterAC(todolistId, 'Completed'))
-   }
+
+   const onAllClickHandler = () => dispatch(changeFilterAC(todolistId, 'All'));
+   const onActiveClickHandler = () => dispatch(changeFilterAC(todolistId, 'Active'));
+   const onCompletedClickHandler = () => dispatch(changeFilterAC(todolistId, 'Completed'));
 
    const editTitleTodolistHandler = (title: string) =>
       dispatch(editTitleTodolistAC(todolistId, title))
@@ -94,6 +82,5 @@ function TodoList({ todolistId, filterBS }: TodoListPropsType) {
          </div>
       </>
    )
-}
+});
 
-export default TodoList

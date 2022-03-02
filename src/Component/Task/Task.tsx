@@ -5,14 +5,14 @@ import {DeleteTwoTone} from "@mui/icons-material";
 import {Checkbox, IconButton} from "@mui/material";
 import {changeStatusTaskAC, editTitleTaskAC, removeTaskAC, TaskType} from "../../Redux-Reducers/Task-Reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {StoreType} from "../../Redux-Reducers/redux-state";
+import {StoreType} from "../../Redux-Reducers/store-redux";
 
 type TaskPropsType = {
     todolistId: string
     taskId: string
 }
 
-export const Task: React.FC<TaskPropsType> = ({todolistId, taskId}) => {
+export const Task: React.FC<TaskPropsType> = React.memo(({todolistId, taskId}) => {
 
     const dispatch = useDispatch();
     const task = useSelector<StoreType, TaskType | undefined>(state => state.taskReducer[todolistId].find(t => t.id === taskId));
@@ -40,4 +40,4 @@ export const Task: React.FC<TaskPropsType> = ({todolistId, taskId}) => {
             </li>
         </div>
     )
-}
+});

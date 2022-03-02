@@ -1,8 +1,7 @@
 import React from 'react'
 import './App.css'
-import TodoList from './Component/TodoList/TodoList'
+import {TodoList} from './Component/TodoList/TodoList'
 import AppBar from '@mui/material/AppBar'
-import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
@@ -12,7 +11,7 @@ import {Menu} from '@mui/icons-material'
 import {AddTodolist} from './Component/AddTodoList/AddTodoList'
 import {addTodolistAC, TodoListsType} from './Redux-Reducers/Todolist-Reducer'
 import {useDispatch, useSelector} from 'react-redux'
-import {StoreType} from './Redux-Reducers/redux-state';
+import {StoreType} from './Redux-Reducers/store-redux';
 
 export const App = React.memo(() => {
 
