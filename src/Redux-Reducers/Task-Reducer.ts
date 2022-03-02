@@ -1,5 +1,11 @@
 import {v1} from 'uuid'
-import {ADD_TODOLIST, AddTodolistActionType, todolistId1} from './Todolist-Reducer'
+import {
+    ADD_TODOLIST,
+    AddTodolistActionType,
+    REMOVE_TODOLIST,
+    RemoveTodolistActionType,
+    todolistId1
+} from './Todolist-Reducer'
 
 export type TaskType = {
     id: string
@@ -7,7 +13,7 @@ export type TaskType = {
     isDone: boolean
 };
 export type FilterValuesType = 'All' | 'Active' | 'Completed';
-type AllActionTaskType = AddTaskActionType | RemoveTaskActionType | ChangeStatusTaskActionType | EditTitleTaskActionType | AddTodolistActionType;
+type AllActionTaskType = AddTaskActionType | RemoveTodolistActionType | RemoveTaskActionType | ChangeStatusTaskActionType | EditTitleTaskActionType | AddTodolistActionType;
 export type initialStateType = {
     [key: string]: TaskType[]
 };
@@ -35,6 +41,12 @@ export const taskReducer = (state = initialState, action: AllActionTaskType): in
     switch (action.type) {
         case ADD_TODOLIST: {
            return  {...state, [action.id]: []}
+        }
+        case REMOVE_TODOLIST: { // только потому что забивает оперативную пямять при скоплении объектов
+            let newState = {...state}
+            delete newState[action.todolistId]
+            return  newState
+
         }
         case ADD_TASK: {
             let newTask = {id: v1(), title: action.title, isDone: false}

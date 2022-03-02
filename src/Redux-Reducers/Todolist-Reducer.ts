@@ -16,7 +16,7 @@ export type InitialStateType = TodoListsType[];
 export const ADD_TODOLIST = 'ADD_TODOLIST';
 const CHANGE_FILTER_TODOLIST = 'CHANGE_FILTER_TODOLIST';
 const EDIT_TITLE_TODOLIST = 'EDIT_TITLE_TODOLIST';
-const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
+export const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 
 export const todolistId1 = v1();
 const initialState: InitialStateType = [

@@ -1,9 +1,11 @@
 import {
     addTodolistAC, changeFilterAC, editTitleTodolistAC,
     InitialStateType, removeTodolistAC,
-    todolistId1, todolistId2,
-    todolistReducer
+    todolistId1, todolistReducer
 } from "../Todolist-Reducer";
+import {v1} from "uuid";
+
+let todolistId2 = v1();
 
 test("Added todolist", () => {
 
