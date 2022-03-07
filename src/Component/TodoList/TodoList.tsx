@@ -16,13 +16,11 @@ type TodoListPropsType = {
 };
 
 export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType) => {
+
    const dispatch = useDispatch()
-   const tasks = useSelector<StoreType, TaskType[]>(
-      (state) => state.taskReducer[todolistId]
-   )
-   const todoList = useSelector<StoreType, TodoListsType>(
-      (state) => state.todolistReducer.filter((e) => e.id === todolistId)[0]
-   )
+
+   const tasks = useSelector<StoreType, TaskType[]>((state) => state.taskReducer[todolistId])
+   const todoList = useSelector<StoreType, TodoListsType>((state) => state.todolistReducer.filter((e) => e.id === todolistId)[0])
 
    let filteredTasks = useCallback((filter: FilterValuesType) => {
       if (filter === 'Active') {
@@ -30,24 +28,22 @@ export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType)
       } else if (filter === 'Completed') {
          return tasks.filter((e) => e.isDone)
       } else return tasks
-   },[])
+   },[tasks]);
 
    const tasksComponents = filteredTasks(todoList.filter).map((task) => {
       return <Task key={task.id} taskId={task.id} todolistId={todolistId} />
    })
 
 
-   const onAllClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'All')),[]);
-   const onActiveClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Active')),[]);
-   const onCompletedClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Completed')),[]);
+   const onAllClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'All')),[dispatch, todolistId]);
+   const onActiveClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Active')),[dispatch, todolistId]);
+   const onCompletedClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Completed')),[dispatch, todolistId]);
 
-   const editTitleTodolistHandler = useCallback((title: string) => {
-      dispatch(editTitleTodolistAC(todolistId, title))},[]);
-   const RemoveTodolist = useCallback(() => {
-       dispatch(removeTodolistAC(todolistId))},[]);
+   const editTitleTodolistHandler = useCallback((title: string) => dispatch(editTitleTodolistAC(todolistId, title)),[dispatch, todolistId]);
+   const RemoveTodolist = useCallback(() => dispatch(removeTodolistAC(todolistId)),[dispatch, todolistId]);
 
    const addTask = useCallback((todolistId: string, title: string) => {
-      dispatch(addTaskAC(todolistId, title))},[])
+      dispatch(addTaskAC(todolistId, title))},[dispatch])
 
    return (
       <>

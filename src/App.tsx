@@ -1,16 +1,14 @@
-import React, {useCallback} from 'react'
-import './App.css'
-import {TodoList} from './Component/TodoList/TodoList'
-import AppBar from '@mui/material/AppBar'
-import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
-import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
-import Toolbar from '@mui/material/Toolbar'
-import {Menu} from '@mui/icons-material'
-import {AddTodolist} from './Component/AddTodoList/AddTodoList'
-import {addTodolistAC, TodoListsType} from './Redux-Reducers/Todolist-Reducer'
-import {useDispatch, useSelector} from 'react-redux'
+import React, {useCallback} from 'react';
+import './App.css';
+import {TodoList} from './Component/TodoList/TodoList';
+import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Toolbar from '@mui/material/Toolbar';
+import {AddTodolist} from './Component/AddTodoList/AddTodoList';
+import {addTodolistAC, TodoListsType} from './Redux-Reducers/Todolist-Reducer';
+import {useDispatch, useSelector} from 'react-redux';
 import {StoreType} from './Redux-Reducers/store-redux';
 
 export const App = React.memo(() => {
@@ -22,7 +20,7 @@ export const App = React.memo(() => {
 
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title))
-    },[])
+    },[dispatch])
 
     //UI
     return (
@@ -31,13 +29,6 @@ export const App = React.memo(() => {
                 <Container maxWidth={'xl'}>
                     <Grid container>
                         <Toolbar>
-                            {/*<IconButton
-                                color={'inherit'}
-                                aria-label={'menu'}
-                                size="large"
-                            >
-                                <Menu/>
-                            </IconButton>*/}
                             <AddTodolist addTodolist={addTodolist}/>
                         </Toolbar>
                     </Grid>

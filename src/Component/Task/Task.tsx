@@ -12,7 +12,7 @@ type TaskPropsType = {
     taskId: string
 }
 
-export const Task: React.FC<TaskPropsType> = React.memo(({todolistId, taskId}) => {
+export const Task = React.memo(({todolistId, taskId}: TaskPropsType) => {
 
     const dispatch = useDispatch();
     const task = useSelector<StoreType, TaskType | undefined>(state => state.taskReducer[todolistId].find(t => t.id === taskId));

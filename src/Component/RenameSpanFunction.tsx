@@ -6,21 +6,21 @@ type TodoListHeaderPropsType = {
     editTitle: ( title: string) => void
 }
 
-export function RenameSpanFunction (props: TodoListHeaderPropsType) {
-    const [newTitle, setNewTitle] = useState<string>(props.title);
+export function RenameSpanFunction ({title, editTitle}: TodoListHeaderPropsType) {
+    const [newTitle, setNewTitle] = useState<string>(title);
     const [edit, setShowInput] = useState<boolean>(false);
 
     const onClick = () => setShowInput(!edit)
     const onBlurHandler = () => {
-        props.editTitle(newTitle)
+        editTitle(newTitle)
         setShowInput(!edit)
-    }
+    };
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
 
     return (
         edit
            ? <TextField style={{width: "120px"}} color={"success"} variant={"standard"} value={newTitle} onChange={ onChangeHandler } autoFocus onBlur={ onBlurHandler }/>
-            : <span onDoubleClick={ onClick } >{props.title}</span>
+            : <span onDoubleClick={ onClick } >{title}</span>
 
     );
 }
