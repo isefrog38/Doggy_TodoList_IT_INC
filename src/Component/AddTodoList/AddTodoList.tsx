@@ -16,7 +16,7 @@ export const AddTodolist = React.memo(({addTodolist, ...props}: AddTodolistType)
         setNewTodolistTitle(e.currentTarget.value)
     }
     const onKeyPressAddTodo = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error !== null) return setError(null)
         if (e.ctrlKey || e.key === "Enter") {
             addTaskHandler()
         }
@@ -36,7 +36,7 @@ export const AddTodolist = React.memo(({addTodolist, ...props}: AddTodolistType)
                 <TextField
                     size={"small"}
                     helperText={error}
-                    color={"warning"}
+                    color={"success"}
                     error={!!error}
                     variant={"standard"}
                     label={"Add Name to Todolist"}

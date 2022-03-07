@@ -17,7 +17,7 @@ export const AddPanel = React.memo((props: AddPanelType) => {
         setNewTaskTitle(e.currentTarget.value)
     }
     const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error !== null) return setError(null)
         if (e.ctrlKey || e.key === "Enter") {
             addTaskHandler()
         }

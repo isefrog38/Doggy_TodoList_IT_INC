@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import { RenameSpanFunction } from '../RenameSpanFunction';
 import Button from '../Button';
 import { AddPanel } from '../AddPanel/AddPanel';
@@ -24,29 +24,30 @@ export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType)
       (state) => state.todolistReducer.filter((e) => e.id === todolistId)[0]
    )
 
-   let filteredTasks = (filter: FilterValuesType) => {
+   let filteredTasks = useCallback((filter: FilterValuesType) => {
       if (filter === 'Active') {
          return tasks.filter((e) => !e.isDone)
       } else if (filter === 'Completed') {
          return tasks.filter((e) => e.isDone)
       } else return tasks
-   }
+   },[])
 
    const tasksComponents = filteredTasks(todoList.filter).map((task) => {
       return <Task key={task.id} taskId={task.id} todolistId={todolistId} />
    })
 
 
-   const onAllClickHandler = () => dispatch(changeFilterAC(todolistId, 'All'));
-   const onActiveClickHandler = () => dispatch(changeFilterAC(todolistId, 'Active'));
-   const onCompletedClickHandler = () => dispatch(changeFilterAC(todolistId, 'Completed'));
+   const onAllClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'All')),[]);
+   const onActiveClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Active')),[]);
+   const onCompletedClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Completed')),[]);
 
-   const editTitleTodolistHandler = (title: string) =>
-      dispatch(editTitleTodolistAC(todolistId, title))
-   const RemoveTodolist = () => dispatch(removeTodolistAC(todolistId))
+   const editTitleTodolistHandler = useCallback((title: string) => {
+      dispatch(editTitleTodolistAC(todolistId, title))},[]);
+   const RemoveTodolist = useCallback(() => {
+       dispatch(removeTodolistAC(todolistId))},[]);
 
-   const addTask = (todolistId: string, title: string) =>
-      dispatch(addTaskAC(todolistId, title))
+   const addTask = useCallback((todolistId: string, title: string) => {
+      dispatch(addTaskAC(todolistId, title))},[])
 
    return (
       <>

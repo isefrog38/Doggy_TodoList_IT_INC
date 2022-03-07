@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import './App.css'
 import {TodoList} from './Component/TodoList/TodoList'
 import AppBar from '@mui/material/AppBar'
@@ -20,24 +20,24 @@ export const App = React.memo(() => {
         (state) => state.todolistReducer
     )
 
-    const addTodolist = (title: string) => {
+    const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title))
-    }
+    },[])
 
     //UI
     return (
         <div className={'App'}>
-            <AppBar position={'static'} color={"primary"}>
+            <AppBar position={'static'} color={"inherit"} style={{backgroundColor: " rgba(144, 164, 15, 0.50)", height: "70px"}}>
                 <Container maxWidth={'xl'}>
                     <Grid container>
                         <Toolbar>
-                            <IconButton
+                            {/*<IconButton
                                 color={'inherit'}
                                 aria-label={'menu'}
                                 size="large"
                             >
                                 <Menu/>
-                            </IconButton>
+                            </IconButton>*/}
                             <AddTodolist addTodolist={addTodolist}/>
                         </Toolbar>
                     </Grid>
