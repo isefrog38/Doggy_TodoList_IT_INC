@@ -19,8 +19,8 @@ export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType)
 
    const dispatch = useDispatch()
 
-   const tasks = useSelector<StoreType, TaskType[]>((state) => state.taskReducer[todolistId])
-   const todoList = useSelector<StoreType, TodoListsType>((state) => state.todolistReducer.filter((e) => e.id === todolistId)[0])
+   const tasks = useSelector<StoreType, TaskType[]>((state) => state.taskReducer[todolistId]);
+   const todoList = useSelector<StoreType, TodoListsType>((state) => state.todolistReducer.filter((e) => e.id === todolistId)[0]);
 
    let filteredTasks = useCallback((filter: FilterValuesType) => {
       if (filter === 'Active') {
@@ -32,7 +32,7 @@ export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType)
 
    const tasksComponents = filteredTasks(todoList.filter).map((task) => {
       return <Task key={task.id} taskId={task.id} todolistId={todolistId} />
-   })
+   });
 
 
    const onAllClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'All')),[dispatch, todolistId]);
