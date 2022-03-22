@@ -14,18 +14,19 @@ import {StoreType} from './Redux-Reducers/store-redux';
 export const App = React.memo(() => {
 
     const dispatch = useDispatch()
-    const todoLists = useSelector<StoreType, TodoListsType[]>(
-        (state) => state.todolistReducer
-    )
+    const todoLists = useSelector<StoreType, TodoListsType[]>(state => state.todolistReducer);
 
-    const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistAC(title))
-    },[dispatch])
+    const addTodolist = useCallback((title: string) => dispatch(addTodolistAC(title)),[dispatch]);
 
     //UI
     return (
         <div className={'App'}>
-            <AppBar position={'static'} color={"inherit"} style={{backgroundColor: " rgba(144, 164, 15, 0.50)", height: "70px"}}>
+            <AppBar position={'static'}
+                    color={"inherit"}
+                    style={{
+                        backgroundColor: " rgba(144, 164, 15, 0.50)",
+                        height: "70px"
+            }}>
                 <Container maxWidth={'xl'}>
                     <Grid container>
                         <Toolbar>
@@ -36,7 +37,8 @@ export const App = React.memo(() => {
             </AppBar>
 
             <Grid container spacing={3}>
-                {todoLists.map((tl) => {
+
+                {todoLists.map((tl) => {                      // MAP
 
                     return (
                         <Grid item key={tl.id}>

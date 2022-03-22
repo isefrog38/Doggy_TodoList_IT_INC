@@ -8,7 +8,7 @@ type ButtonPropsType = {
     activeButton: FilterValuesType
 }
 
-function Buttons({title, onClickHandler, activeButton}: ButtonPropsType) {
+export const  Buttons = ({title, onClickHandler, activeButton}: ButtonPropsType) => {
     return (
         <Button
             color={activeButton === title ? "success" : "success"}
@@ -18,5 +18,3 @@ function Buttons({title, onClickHandler, activeButton}: ButtonPropsType) {
         </Button>
     )
 }
-
-export default Buttons;

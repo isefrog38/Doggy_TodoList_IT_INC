@@ -46,7 +46,6 @@ export const taskReducer = (state = initialState, action: AllActionTaskType): in
             let newState = {...state}
             delete newState[action.todolistId]
             return  newState
-
         }
         case ADD_TASK: {
             let newTask = {id: v1(), title: action.title, isDone: false}

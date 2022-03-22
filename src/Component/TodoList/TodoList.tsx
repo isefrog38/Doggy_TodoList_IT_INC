@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react';
+import React, {memo, useCallback} from 'react';
 import { RenameSpanFunction } from '../RenameSpanFunction';
-import Button from '../Button';
+import {Buttons} from '../Button';
 import { AddPanel } from '../AddPanel/AddPanel';
 import { DeleteTwoTone } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -15,12 +15,11 @@ type TodoListPropsType = {
    filterBS: FilterValuesType
 };
 
-export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType) => {
-
-   const dispatch = useDispatch()
+export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
 
    const tasks = useSelector<StoreType, TaskType[]>((state) => state.taskReducer[todolistId]);
    const todoList = useSelector<StoreType, TodoListsType>((state) => state.todolistReducer.filter((e) => e.id === todolistId)[0]);
+   const dispatch = useDispatch();
 
    let filteredTasks = useCallback((filter: FilterValuesType) => {
       if (filter === 'Active') {
@@ -42,8 +41,7 @@ export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType)
    const editTitleTodolistHandler = useCallback((title: string) => dispatch(editTitleTodolistAC(todolistId, title)),[dispatch, todolistId]);
    const RemoveTodolist = useCallback(() => dispatch(removeTodolistAC(todolistId)),[dispatch, todolistId]);
 
-   const addTask = useCallback((todolistId: string, title: string) => {
-      dispatch(addTaskAC(todolistId, title))},[dispatch])
+   const addTask = useCallback((todolistId: string, title: string) => dispatch(addTaskAC(todolistId, title)),[dispatch]);
 
    return (
       <>
@@ -60,17 +58,17 @@ export const TodoList = React.memo(({ todolistId, filterBS }: TodoListPropsType)
             <AddPanel addTask={addTask} id={todolistId} />
             <ul>{tasksComponents}</ul>
             <div>
-               <Button
+               <Buttons
                   activeButton={filterBS}
                   onClickHandler={onAllClickHandler}
                   title={'All'}
                />
-               <Button
+               <Buttons
                   activeButton={filterBS}
                   onClickHandler={onActiveClickHandler}
                   title={'Active'}
                />
-               <Button
+               <Buttons
                   activeButton={filterBS}
                   onClickHandler={onCompletedClickHandler}
                   title={'Completed'}
