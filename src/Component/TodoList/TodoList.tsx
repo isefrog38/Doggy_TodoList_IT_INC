@@ -1,6 +1,5 @@
 import React, {memo, useCallback} from 'react';
 import { RenameSpanFunction } from '../RenameSpanFunction';
-import {Buttons} from '../Button';
 import { AddPanel } from '../AddPanel/AddPanel';
 import { DeleteTwoTone } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -8,7 +7,8 @@ import { addTaskAC, FilterValuesType, TaskType,} from '../../Redux-Reducers/Task
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../../Redux-Reducers/store-redux';
 import { Task } from '../Task/Task';
-import { changeFilterAC, editTitleTodolistAC, removeTodolistAC, TodoListsType,} from '../../Redux-Reducers/Todolist-Reducer';
+import { editTitleTodolistAC, removeTodolistAC, TodoListsType,} from '../../Redux-Reducers/Todolist-Reducer';
+import {Buttons} from "../Buttons/Buttons";
 
 type TodoListPropsType = {
    todolistId: string
@@ -33,11 +33,6 @@ export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
       return <Task key={task.id} taskId={task.id} todolistId={todolistId} />
    });
 
-
-   const onAllClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'All')),[dispatch, todolistId]);
-   const onActiveClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Active')),[dispatch, todolistId]);
-   const onCompletedClickHandler = useCallback(() => dispatch(changeFilterAC(todolistId, 'Completed')),[dispatch, todolistId]);
-
    const editTitleTodolistHandler = useCallback((title: string) => dispatch(editTitleTodolistAC(todolistId, title)),[dispatch, todolistId]);
    const RemoveTodolist = useCallback(() => dispatch(removeTodolistAC(todolistId)),[dispatch, todolistId]);
 
@@ -46,9 +41,11 @@ export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
    return (
       <>
          <div>
+            {/*Delete Todolist*/}
             <IconButton style={{ float: 'right' }} onClick={RemoveTodolist}>
                <DeleteTwoTone />
             </IconButton>
+            {/*Rename Title Todolist*/}
             <h3>
                <RenameSpanFunction
                   title={todoList.title}
@@ -56,24 +53,10 @@ export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
                />
             </h3>
             <AddPanel addTask={addTask} id={todolistId} />
+            {/*Tasks*/}
             <ul>{tasksComponents}</ul>
-            <div>
-               <Buttons
-                  activeButton={filterBS}
-                  onClickHandler={onAllClickHandler}
-                  title={'All'}
-               />
-               <Buttons
-                  activeButton={filterBS}
-                  onClickHandler={onActiveClickHandler}
-                  title={'Active'}
-               />
-               <Buttons
-                  activeButton={filterBS}
-                  onClickHandler={onCompletedClickHandler}
-                  title={'Completed'}
-               />
-            </div>
+            {/*Buttons*/}
+            <Buttons filterBS={filterBS} todolistId={todolistId}/>
          </div>
       </>
    )

@@ -1,6 +1,6 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {AddPanel} from "../Component/AddPanel/AddPanel";
+import {AddPanel} from "../../Component/AddPanel/AddPanel";
 import {v1} from "uuid";
 
 export default {
@@ -11,18 +11,15 @@ export default {
     },
     argTypes: {
         addTask: {action: 'clicked'}
-    }
+    },
+    decorators: [
+        story => <div style={{ padding: '3rem' }}>{story()}</div>
+    ],
 } as ComponentMeta<typeof AddPanel>;
 
 const id = v1();
 
-const Template: ComponentStory<typeof AddPanel> = (args) => {
-    return (
-        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-            <AddPanel {...args}/>
-        </div>
-    )
-};
+const Template: ComponentStory<typeof AddPanel> = (args) => <AddPanel {...args}/>;
 
 export const Input = Template.bind({
     id: id,

@@ -1,3 +1,7 @@
+export const lol = () => {
+
+}
+/*
 import React from 'react';
 import {TodoList} from "../Component/TodoList/TodoList";
 import {Provider, useSelector} from "react-redux";
@@ -29,4 +33,4 @@ const Template: ComponentStory<typeof TodoList> = (args) => <Todolist {...args}/
 export const Todolist = Template.bind({});
 Todolist.args = {
 
-}
+}*/

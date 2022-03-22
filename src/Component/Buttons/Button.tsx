@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from "@mui/material";
-import {FilterValuesType} from "../Redux-Reducers/Task-Reducer";
+import {FilterValuesType} from "../../Redux-Reducers/Task-Reducer";
 
 type ButtonPropsType = {
     title: string
@@ -8,7 +8,7 @@ type ButtonPropsType = {
     activeButton: FilterValuesType
 }
 
-export const  Buttons = ({title, onClickHandler, activeButton}: ButtonPropsType) => {
+export const  CleanButton = ({title, onClickHandler, activeButton}: ButtonPropsType) => {
     return (
         <Button
             color={activeButton === title ? "success" : "success"}

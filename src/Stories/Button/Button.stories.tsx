@@ -1,10 +1,10 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {Buttons} from "../../Component/Button";
+import {CleanButton} from "../../Component/Buttons/Button";
 
 export default {
     title: "MyComponents/Button/Button",
-    component: Buttons,
+    component: CleanButton,
     parameters: {
         layout: 'fullscreen',
     },
@@ -17,10 +17,12 @@ export default {
         },
         onClickHandler: {action: 'clicked'},
     },
-    decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-} as ComponentMeta<typeof Buttons>;
+    decorators: [
+        story => <div style={{ padding: '3rem' }}>{story()}</div>
+    ],
+} as ComponentMeta<typeof CleanButton>;
 
-const Template: ComponentStory<typeof Buttons> = (args) => <Buttons {...args}/>;
+const Template: ComponentStory<typeof CleanButton> = (args) => <CleanButton {...args}/>;
 
 export const ButtonAll = Template.bind({});
 ButtonAll.args = {

@@ -17,12 +17,14 @@ export default {
         },
         onClickHandler: {action: 'clicked'},
     },
-    decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+    decorators: [story =>
+        <div style={{padding: '3rem'}}>{story()}</div>
+    ],
 } as ComponentMeta<typeof AllButtonExample>;
 
 const Template: ComponentStory<typeof AllButtonExample> = (args) => <AllButtonExample {...args}/>;
 
-export const ButtonAll = Template.bind({});
-ButtonAll.args = {
+export const Buttons = Template.bind({});
+Buttons.args = {
 
 };

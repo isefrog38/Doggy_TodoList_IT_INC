@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Buttons} from "../../Component/Button";
+import {CleanButton} from "../../Component/Buttons/Button";
 
 export const AllButtonExample = (props: any) => {
 
@@ -12,17 +12,17 @@ export const AllButtonExample = (props: any) => {
 
     return (
         <div>
-            <Buttons
+            <CleanButton
                 activeButton={filterBS}
                 onClickHandler={onAllClickHandlerAll}
                 title={'All'}
             />
-            <Buttons
+            <CleanButton
                 activeButton={filterBS}
                 onClickHandler={onAllClickHandlerActive}
                 title={'Active'}
             />
-            <Buttons
+            <CleanButton
                 activeButton={filterBS}
                 onClickHandler={onAllClickHandlerCompleted}
                 title={'Completed'}
