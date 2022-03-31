@@ -12,7 +12,7 @@ import {Buttons} from "../Buttons/Buttons";
 
 type TodoListPropsType = {
    todolistId: string
-   filterBS: FilterValuesType
+   filterBS: /*FilterValuesType*/ string
 };
 
 export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
@@ -29,9 +29,9 @@ export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
       } else return tasks
    },[tasks]);
 
-   const tasksComponents = filteredTasks(todoList.filter).map((task) => {
+   /*const tasksComponents = filteredTasks(todoList.addedDate).map((task) => {
       return <Task key={task.id} taskId={task.id} todolistId={todolistId} />
-   });
+   });*/
 
    const editTitleTodolistHandler = useCallback((title: string) => dispatch(editTitleTodolistAC(todolistId, title)),[dispatch, todolistId]);
    const RemoveTodolist = useCallback(() => dispatch(removeTodolistAC(todolistId)),[dispatch, todolistId]);
@@ -54,9 +54,9 @@ export const TodoList = memo(({ todolistId, filterBS }: TodoListPropsType) => {
             </h3>
             <AddPanel addTask={addTask} id={todolistId} />
             {/*Tasks*/}
-            <ul>{tasksComponents}</ul>
-            {/*Buttons*/}
-            <Buttons filterBS={filterBS} todolistId={todolistId}/>
+            {/*<ul>{tasksComponents}</ul>
+            Buttons
+            <Buttons filterBS={filterBS} todolistId={todolistId}/>*/}
          </div>
       </>
    )
